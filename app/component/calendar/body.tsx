@@ -21,6 +21,7 @@ export default function Body(props: BodyProps) {
     const [data, setData] = useState<Data[] | []>([]);
     const [events, setEvents] = useState<Events[] | []>([]);
     const [monthStart, setMonthStart] = useState<number>(0);
+    const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
     useEffect(() => {
         setMonthStart(getMonthStart(props.date));
@@ -48,7 +49,7 @@ export default function Body(props: BodyProps) {
             {getAllDaysInMonth(props.date).map((interval: Date, i: number) => {
                 let selected = events.find((launch: any) => isDaySame(interval, launch.date));
                 return <>
-                    <Card value={i + 1} key={i} data={selected} order={monthStart+i}/>
+                    <Card value={i + 1} key={i} data={selected} order={monthStart+i} show={selectedIndex === i+1} handleOnClick={setSelectedIndex}/>
                 </>
                 }
             )}

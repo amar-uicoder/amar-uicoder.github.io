@@ -4,12 +4,13 @@ import Image from 'next/image';
 type CardProps = {
     value: number,
     data: any,
-    order: number
+    order: number,
+    show: boolean,
+    handleOnClick: (index: number) => void
 }
 
 export default function Card(props: CardProps) {
-    const [toggle, setToggle] = useState<boolean>(false);
-    const toggleBanner = () => setToggle(!toggle);
+    const toggleBanner = () => props.handleOnClick(props.value);
     return <>
         <a href="#" className="relative block max-w-sm p-12 bg-white border border-gray-200 shadow hover:bg-gray-100" style={{
             backgroundImage: `url("${props.data?.thumbnailSrc}")`,
@@ -19,7 +20,7 @@ export default function Card(props: CardProps) {
             &nbsp;<span className={`absolute top-3 right-5 font-bold ${props.data != null ? "bg-blue-900 text-white rounded-full px-3 py-1" : ""}`}>{props.value}</span>
         </a>
         {
-            props.data && toggle && <div className='col-span-7 p-11' style={{
+            props.data && props.show && <div className='col-span-7 p-11' style={{
                 backgroundImage: `url("${props.data?.bannerSrc}")`,
                 backgroundSize: '100% 100%',
                 order: Math.floor(props.order/7 + 1) * 7

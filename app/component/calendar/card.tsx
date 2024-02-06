@@ -12,13 +12,15 @@ type CardProps = {
 export default function Card(props: CardProps) {
     const toggleBanner = () => props.handleOnClick(props.value);
     return <>
-        <a href="#" className="relative block max-w-sm p-12 bg-white border border-gray-200 shadow hover:bg-gray-100" style={{
+        <div className="relative block max-w-sm bg-white border border-gray-200 shadow hover:bg-gray-100" style={{
             backgroundImage: `url("${props.data?.thumbnailSrc}")`,
-            backgroundSize: '100% 100%',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'contain',
             order: props.order
         }} onClick={toggleBanner}>
-            &nbsp;<span className={`absolute top-3 right-5 font-bold ${props.data != null ? "bg-blue-900 text-white rounded-full px-3 py-1" : ""}`}>{props.value}</span>
-        </a>
+            <span className={`absolute top-3 right-5 font-bold px-3 py-1 ${props.data != null ? "bg-blue-900 text-white rounded-full" : ""}`}>{props.value}</span>
+            <img src="/hogwarts-legacy__1x1.webp" className='invisible' />
+        </div>
         {
             props.data && props.show && <div className='col-span-7 p-11' style={{
                 backgroundImage: `url("${props.data?.bannerSrc}")`,

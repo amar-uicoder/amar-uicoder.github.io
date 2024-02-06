@@ -21,7 +21,7 @@ export default function CalendarBody(props: CalendarProps) {
     const nextClick = () => setDate(addMonth(date));
 
 
-    return <div className="p-3">
+    return <div className="p-3" style={{ maxWidth: '1240px', margin: 'auto' }}>
         <Header date={date} previousClick={previousClick} nextClick={nextClick}></Header>
         <hr/>
         <Body date={date}></Body>

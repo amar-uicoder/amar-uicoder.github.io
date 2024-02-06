@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { DAYS, getMonthStart, getAllDaysInMonth, isDaySame, formattedDate } from "../../library/date-helper";
+import { getMonthStart, getAllDaysInMonth, isDaySame, formattedDate } from "../../library/date-helper";
+import Days from "./days";
 import Card from "./card";
 
 type BodyProps = {
@@ -42,15 +43,13 @@ export default function Body(props: BodyProps) {
 
     return <div>
         <div className="grid grid-cols-7 py-3 gap-2 flex">
-            {DAYS.map((day: string, index: number) => <div className="text-center font-bold" key={index}>{day}</div>)}
+            <Days />
             {Array(getMonthStart(props.date)).fill(1).map((el, j) =>
-                <div className="invisible" key={j}></div>
+                <div className="invisible" key={`fill-${j}`}></div>
             )}
             {getAllDaysInMonth(props.date).map((interval: Date, i: number) => {
                 let selected = events.find((launch: any) => isDaySame(interval, launch.date));
-                return <>
-                    <Card value={i + 1} key={i} data={selected} order={monthStart+i} show={selectedIndex === i+1} handleOnClick={setSelectedIndex}/>
-                </>
+                return <Card value={i + 1} key={`card-${i}`} data={selected} order={monthStart+i} show={selectedIndex === i+1} handleOnClick={setSelectedIndex}/>
                 }
             )}
         </div>

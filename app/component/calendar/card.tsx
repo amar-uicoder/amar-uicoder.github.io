@@ -10,34 +10,31 @@ type CardProps = {
 }
 
 export default function Card(props: CardProps) {
-    const toggleBanner = () => props.handleOnClick(props.value);
+    const toggleBanner = () => props.data ? props.handleOnClick(props.show ? 0 : props.value) : null;
     return <>
-        <div className="relative block max-w-sm bg-white border border-gray-200 shadow hover:bg-gray-100" style={{
+        <div className="relative block max-w-sm bg-white border border-gray-200 shadow hover:bg-gray-100 bg-no-repeat bg-contain" style={{
             backgroundImage: `url("${props.data?.thumbnailSrc}")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'contain',
-            order: props.order
+            order: props.order,
+            cursor: props.data ? 'pointer' : 'default'
         }} onClick={toggleBanner}>
             <span className={`absolute top-3 right-5 font-bold px-3 py-1 ${props.data != null ? "bg-blue-900 text-white rounded-full" : ""}`}>{props.value}</span>
-            <img src="/hogwarts-legacy__1x1.webp" className='invisible' />
+            <img src={props.data?.thumbnailSrc || "/hogwarts-legacy__1x1.webp"} className='invisible' />
         </div>
         {
-            props.data && props.show && <div className='col-span-7 p-11' style={{
+            props.data && props.show && <div className='col-span-7 relative bg-no-repeat bg-contain' style={{
                 backgroundImage: `url("${props.data?.bannerSrc}")`,
-                backgroundSize: '100% 100%',
-                order: Math.floor(props.order/7 + 1) * 7
+                order: Math.floor(props.order / 7 + 1) * 7
             }}>
-                <div className='w-1/2'>
+                <img src={props.data?.bannerSrc} className='invisible' />
+                <div className='w-1/2 absolute top-1/4 p-11'>
                     <div className='text-white text-sm'>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar sapien mi, eu posuere diam feugiat a. Aenean egestas massa nisi, bibendum rhoncus justo placerat a. Maecenas maximus, dolor vitae elementum viverra, augue mauris viverra urna, ut tempus arcu mi id ante. Phasellus vulputate purus quis enim commodo, nec cursus lectus auctor. In dui ante, bibendum id aliquet et, tristique vitae nisl. Vivamus accumsan pulvinar sapien, ultrices cursus orci laoreet ac. Aenean lorem orci
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar sapien mi, eu posuere diam feugiat a. Aenean egestas massa nisi, bibendum rhoncus justo placerat a. Maecenas maximus, dolor vitae elementum viverra, augue mauris viverra urna, ut tempus arcu mi id ante. Phasellus vulputate purus quis enim commodo, nec cursus lectus auctor. In dui ante, bibendum id aliquet et, tristique vitae nisl. Vivamus accumsan pulvinar sapien, ultrices cursus orci laoreet ac. Aenean lorem orci
                     </div>
                     <div className='text-white text-base py-4'>Available Soon</div>
                     <div>
                         <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">Learn More</button>
                         <button type="button" className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">Pre order now</button>
                     </div>
-                    
-                    
                 </div>
             </div>
         }
